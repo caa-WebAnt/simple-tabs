@@ -18,7 +18,7 @@ export class SimpleTabs {
         if(has != ""){
             this.links.forEach(el => {
                 if(el.getAttribute('href') === has ){
-                    this.pushHas(el)
+                    this.tabInitWithHas(el)
                 }
             })
         }else{
@@ -27,64 +27,49 @@ export class SimpleTabs {
             document.querySelector(href).classList.add('active')
         }
         this.links.forEach((link) => {
-
-            link.addEventListener('click', this.tab)
+            link.addEventListener('click', (event) =>  {
+                event.preventDefault()
+                this.tabInit(event)
+            })
         })
 
     }
 
-    tab(){
+    tabInit(event){
 
-        // test if li has class active
-        const hasActive = this.classList.contains('active')
-        if(hasActive){
+        // href
+        const href = event.target.getAttribute("href") 
 
-            return false
-    
-        }else {
-            // href
-            const href = this.getAttribute('href')
+        // del current active
+        const current = event.currentTarget.parentNode.parentNode.querySelector('a.active') 
+        const currentHref = current.getAttribute('href')
 
-             // del current active
-            const current = this.parentNode.parentNode.querySelector('a.active')
-            const currentHref = current.getAttribute('href')
+        current.classList.remove('active')
+        document.querySelector(currentHref).classList.remove('active')
 
-            current.classList.remove('active')
-            document.querySelector(currentHref).classList.remove('active')
-
-            // add active cible
-            this.classList.add('active')
-            document.querySelector(href).classList.add('active')
-        
-        }
+        // add active cible
+        event.currentTarget.classList.add('active') 
+        document.querySelector(href).classList.add('active')
     }
 
-    pushHas(el){
-
+    tabInitWithHas(el){
         // test if li has class active
         const hasActive = el.classList.contains('active')
         if(hasActive){
-
             return false
-    
         }else {
             // href
             const href = el.getAttribute('href')
-
              // del current active
             const current = el.parentNode.parentNode.querySelector('a.active')
             if(current != null){
-
                 const currentHref = current.getAttribute('href')
-    
                 current.classList.remove('active')
                 document.querySelector(currentHref).classList.remove('active')
             }
-
             // add active cible
             el.classList.add('active')
             document.querySelector(href).classList.add('active')
-        
         }
     }
 
