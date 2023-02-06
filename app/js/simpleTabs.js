@@ -1,13 +1,28 @@
+/**
+ * @fileOverview
+ * @author Carlos Antunes
+ * @version 1.0.0
+ */
+
+
+/**
+ * @description
+ * Vanilla Javascript Tabs
+ *
+ * @class
+ * @param {string} option.links - querySelectorAll of tabs
+ * @param {number} [options.open = 0] - Render the tabs with this item open
+ */
 export class SimpleTabs {
 
-    links = []
+    options = {
+        open : 0
+    }
 
-    /**
-     * 
-     * @param {Array[]} links - HTML selector of tabs liste 
-     */
-    constructor(links) {
-        this.links = links
+    constructor(options) {
+        this.options = Object.assign({}, this.options, options)
+
+        this.links = document.querySelectorAll(this.options.links)
 
         this.init()
 
@@ -22,20 +37,33 @@ export class SimpleTabs {
                 }
             })
         }else{
-            this.links[0].classList.add('active')
-            const href =  this.links[0].getAttribute('href')
-            document.querySelector(href).classList.add('active')
+
+            if(this.options.open < this.links.length){
+                this.tabInit(this.options.open)
+            }else{ 
+                this.tabInit(0)
+                console.error(`Attention the tab number (${this.options.open}) does not exist open tab with default value (0) !`)
+            }
         }
         this.links.forEach((link) => {
             link.addEventListener('click', (event) =>  {
                 event.preventDefault()
-                this.tabInit(event)
+                this.onClick(event)
             })
         })
 
     }
+    /**
+     * 
+     * @param {number} tabNumber 
+     */
+    tabInit(tabNumber){
+        this.links[tabNumber].classList.add('active')
+        const href =  this.links[tabNumber].getAttribute('href')
+        document.querySelector(href).classList.add('active')
+    }
 
-    tabInit(event){
+    onClick(event){
 
         // href
         const href = event.target.getAttribute("href") 
