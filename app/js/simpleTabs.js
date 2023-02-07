@@ -29,20 +29,16 @@ export class SimpleTabs {
     }
 
     init(){
-        const has = window.location.hash
-        if(has != ""){
-            this.links.forEach(el => {
-                if(el.getAttribute('href') === has ){
-                    this.tabInitWithHas(el)
-                }
-            })
+        const windowHash = window.location.hash
+        if(windowHash != ""){
+            this.locationHash(windowHash)
         }else{
 
             if(this.options.open < this.links.length){
                 this.tabInit(this.options.open)
             }else{ 
                 this.tabInit(0)
-                console.error(`Attention the tab number (${this.options.open}) does not exist open tab with default value (0) !`)
+                console.error(`Attention the tab number (${this.options.open}) does not exist. Open tab with default value (0) !`)
             }
         }
         this.links.forEach((link) => {
@@ -50,6 +46,10 @@ export class SimpleTabs {
                 event.preventDefault()
                 this.onClick(event)
             })
+        })
+
+        window.addEventListener('hashchange', () => {
+            this.locationHash(window.location.hash)
         })
 
     }
@@ -67,7 +67,9 @@ export class SimpleTabs {
 
         // href
         const href = event.target.getAttribute("href") 
-
+        // push state href
+        window.history.pushState({}, '', href)
+        
         // del current active
         const current = event.currentTarget.parentNode.parentNode.querySelector('a.active') 
         const currentHref = current.getAttribute('href')
@@ -98,6 +100,19 @@ export class SimpleTabs {
             // add active cible
             el.classList.add('active')
             document.querySelector(href).classList.add('active')
+        }
+    }
+
+
+    locationHash(hash){
+        if(hash != ''){
+            this.links.forEach(el => {
+                if(el.getAttribute('href') === hash ){
+                    this.tabInitWithHas(el)
+                }
+            })
+        }else {
+            this.tabInitWithHas(this.links[0])
         }
     }
 
