@@ -1,0 +1,46 @@
+@import "default";
+
+
+/* 
+    TABS CSS 
+*/
+.tabs{
+  background-color: rgba(255,255,255, 0.3);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  border-radius: .25rem;
+
+  padding: 20px;
+}
+
+ul.tabs-links{
+  
+  list-style: none;
+  display: flex;
+  justify-content: center;
+
+  li a{
+    display: block;
+    padding: 8px 25px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  li a.active, li a:hover{
+    color: #fff;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: .25rem;
+    transition: background-color 1s;
+  }
+}
+
+div.tabs-content{
+  padding: 0.2rem;
+
+  div{
+    display: none;
+  }
+
+  div.active{
+    display: block;
+  }
+}

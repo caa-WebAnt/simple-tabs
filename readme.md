@@ -6,6 +6,8 @@
 ## Prepare HTML 
 
 ```html
+    <link rel="stylesheet" href="./dist/asset/style.css">
+
     <div class="tabs">
         <ul class="tabs-links">
             <li><a href="#tab-1">tab-1</a></li>
@@ -13,26 +15,28 @@
             <li><a href="#tab-3">tab-3</a></li>
         </ul>
         <div class="tabs-content">
-            <div id="tab-1">Content of first tab</div>
-            <div id="tab-2">Content of second tab</div>
-            <div id="tab-3">Content of third tab</div>
+            <div id="tab-1">First tab content...</div>
+            <div id="tab-2">Second tab content...</div>
+            <div id="tab-3">Third tab content...</div>
         </div>
     </div>
+
+    <script src="./dist/assets/script.js"></script>
 ```
 
 ## Options
 
-Option | Type | Default | Description
------- | ---- | ------- | -----------
-elem | string |         | HTML links of the tabs in the HTML markup.
-open | number |     0   | Opens this tab initially.
+Option | Type   | Default | Description
+------ | ------ | ------- | -----------
+links  | string |         | HTML links of the tabs in the HTML markup.
+open   | number |     0   | Opens this tab initially.
 
 ## Usage example
 
 ```javascript
     const tabs = new SimpleTabs({
-        links : '.tabs-links a',
-        open : 3
+        links : '.tabs-links a', // Html selector
+        open : 3 // default opned tab
     })
 ````
 
