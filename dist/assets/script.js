@@ -77,10 +77,6 @@ class SimpleTabs {
       this.locationHash(window.location.hash);
     });
   }
-  /**
-   * 
-   * @param {number} tabNumber 
-   */
   tabInit(tabNumber) {
     this.links[tabNumber].classList.add("active");
     const href = this.links[tabNumber].getAttribute("href");
@@ -124,7 +120,3 @@ class SimpleTabs {
     }
   }
 }
-new SimpleTabs({
-  links: ".tabs-links a",
-  open: 3
-});
